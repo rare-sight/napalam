@@ -3,21 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WHATEVER</title>
+    <title>NUke_nuke</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
+    <style>
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      #map { 
+        height: 400px; 
+        width: 100%; 
+      }
+      
+      .video-container {
+        background-color: black;
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%; /* Aspect ratio for 16:9 video */
+        overflow: hidden;
+      }
+      
+      .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      
+      .overlay-text {
+        position: absolute;
+        top: 5%;
+        left: 10%;
+        transform: translate(-25%, -50%);
+        color: white;
+        font-size: 50px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      }
+      
+      .nav {
+        position: absolute;
+        top: 10%;
+        left: 70%;
+        transform: translate(-25%, -50%);
+        color: white;
+        font-size: 25px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      }
+      
+      .nav a {
+        text-decoration: none;
+        color: antiquewhite;
+        margin-right: 50px; 
+      }
+      body{
+        background-color: black;
+        background-image: url(https://www.solidbackgrounds.com/1080x1920-light-pink-solid-color-background.html);
+      }
+      .latlong {
+    display: flex;
+    flex-direction: column; /* Changed from 'row' to 'column' for vertical stacking */
+    justify-content: left;
+    align-items: flex-start; /* Aligns labels and inputs to the left */
+    margin: auto;
+    gap: 15px; /* Adds spacing between fields */
+}
+
+label {
+  color: aliceblue;
+  font-size: 50px;
+    margin-right: 0px; /* Adds space between labels and inputs */
+}
+
+input {
+    margin-top: 0px; /* Adds space between input fields and labels */
+}
+
+
+      
+    </style>
 </head>
 <body>
-    <h1>Login Form</h1>
-    <form action="/login" method="post">
-        <label for="latitude">Latitude:</label>
-        <input type="number" step="any" id="latitude" name="latitude"><br>
-        <br>
-        <label for="longitude">Longitude:</label>
-        <input type="number" step="any" id="longitude" name="longitude"><br>
-        <br>
-        <label for = "y">Yield:</label>
-        <input type="number" step = "any" id="y" name="y"><br>
-        <input type="submit" value="Submit">
-    </form>
+  
+    <div class="video-container">
+        <video autoplay muted loop>
+          <source src="{{ url_for('static', filename='nippo.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay-text">Napalam | Nikhil</div>
+        <div class="nav">
+            <ul>
+                <li>
+                    <a href="\">About</a>
+                    <a href="https://github.com/rare-sight">Github</a>
+                    <a href="\">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="map"></div>
+    <br>
+    <br>
     
+    <form action="/login" method="post">
+      <label for="latitude">Latitude:</label>
+      <input type="number" step="any" id="latitude" name="latitude" readonly>
+      <label for="longitude">Longitude:</label>
+      <input type="number" step="any" id="longitude" name="longitude" readonly>
+      <label for="y">Yield:</label>
+      <input type="number" step="any" id="y" name="y"><br>
+      <input type="radio" id="surface" name="Fix" value="surface">
+      <label for="surface">Surface</label><br>
+      <input type="radio" id="airburst" name="Fix" value="airburst">
+      <label for="airburst">Airburst</label><br>
+      <input type="submit" value="Submit">
+  </form>
+ 
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([31, 70], 13);  //zoom start
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        map.on('click', function(e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+
+  
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+        });
+    </script>
 </body>
 </html>
