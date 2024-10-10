@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUke_nuke</title>
+    <title>Nuke_nuke</title>
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     
@@ -15,8 +15,8 @@
       }
       
       #map { 
-        height: 400px; 
-        width: 100%; 
+        height: 1000px; 
+        width: 90%; 
       }
       
       .video-container {
@@ -24,7 +24,7 @@
         position: relative;
         width: 100%;
         height: 0;
-        padding-bottom: 56.25%; /* Aspect ratio for 16:9 video */
+        padding-bottom: 56.25%; 
         overflow: hidden;
       }
       
@@ -34,6 +34,7 @@
         left: 0;
         width: 100%;
         height: 100%;
+        
       }
       
       .overlay-text {
@@ -61,30 +62,29 @@
         color: antiquewhite;
         margin-right: 50px; 
       }
-      body{
+
+      body {
         background-color: black;
-        background-image: url(https://www.solidbackgrounds.com/1080x1920-light-pink-solid-color-background.html);
       }
+
       .latlong {
-    display: flex;
-    flex-direction: column; /* Changed from 'row' to 'column' for vertical stacking */
-    justify-content: left;
-    align-items: flex-start; /* Aligns labels and inputs to the left */
-    margin: auto;
-    gap: 15px; /* Adds spacing between fields */
-}
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        align-items: flex-start;
+        margin: auto;
+        gap: 15px; 
+      }
 
-label {
-  color: aliceblue;
-  font-size: 50px;
-    margin-right: 0px; /* Adds space between labels and inputs */
-}
+      label {
+        color: aliceblue;
+        font-size: 50px;
+        margin-right: 0px; 
+      }
 
-input {
-    margin-top: 0px; /* Adds space between input fields and labels */
-}
-
-
+      input {
+        margin-top: 0px; 
+      }
       
     </style>
 </head>
@@ -92,16 +92,16 @@ input {
   
     <div class="video-container">
         <video autoplay muted loop>
-          <source src="{{ url_for('static', filename='nippo.mp4') }}" type="video/mp4">
+            <source src="{{ url_for('static', filename='nippo.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="overlay-text">Napalam | Nikhil</div>
+        <div class="overlay-text">Napalm | Nikhil</div>
         <div class="nav">
             <ul>
                 <li>
-                    <a href="\">About</a>
+                    <a href="/About">About</a>
                     <a href="https://github.com/rare-sight">Github</a>
-                    <a href="\">Contact</a>
+                    <a href="#">Contact</a>
                 </li>
             </ul>
         </div>
@@ -115,7 +115,7 @@ input {
       <input type="number" step="any" id="latitude" name="latitude" readonly>
       <label for="longitude">Longitude:</label>
       <input type="number" step="any" id="longitude" name="longitude" readonly>
-      <label for="y">Yield:</label>
+      <label for="y">Yield (kt):</label>
       <input type="number" step="any" id="y" name="y"><br>
       <input type="radio" id="surface" name="Fix" value="surface">
       <label for="surface">Surface</label><br>
@@ -126,16 +126,16 @@ input {
  
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([31, 70], 13);  //zoom start
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var map = L.map('map').setView([31, 70], 3); 
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+  
         map.on('click', function(e) {
             var lat = e.latlng.lat;
             var lng = e.latlng.lng;
 
-  
             document.getElementById('latitude').value = lat;
             document.getElementById('longitude').value = lng;
         });
